@@ -61,8 +61,7 @@ const AppState = {
                 if (typeof Dashboard !== 'undefined' && Dashboard.renderSkills) {
                     Dashboard.certs = certs;
                     Dashboard.calculateStats();
-                    Dashboard.renderSkills();
-                    Dashboard.renderCategoryCharts();
+                    Dashboard.loadAndRenderCharts();
                     Dashboard.renderTimeline();
                 }
                 if (typeof CertificatesApp !== 'undefined' && CertificatesApp.render) {

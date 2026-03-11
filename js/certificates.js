@@ -95,16 +95,19 @@ const CertificatesApp = {
         const category = this.categoryFilter.value;
 
         this.filteredCerts = this.certs.filter(cert => {
+            // Ensure skills is always an array
+            const skills = Array.isArray(cert.skills) ? cert.skills : [];
+
             // Search Match (Title, Org, Skills)
-            const matchesSearch = 
-                cert.title.toLowerCase().includes(searchTerm) ||
-                cert.organization.toLowerCase().includes(searchTerm) ||
-                cert.skills.some(s => s.toLowerCase().includes(searchTerm));
+            const matchesSearch =
+                (cert.title || '').toLowerCase().includes(searchTerm) ||
+                (cert.organization || '').toLowerCase().includes(searchTerm) ||
+                skills.some(s => s.toLowerCase().includes(searchTerm));
 
             // Select Matches
-            const matchesSkill = skill === 'all' || cert.skills.includes(skill);
-            const matchesPlatform = platform === 'all' || cert.platform === platform;
-            const matchesYear = year === 'all' || new Date(cert.issueDate).getFullYear().toString() === year;
+            const matchesSkill    = skill === 'all' || skills.includes(skill);
+            const matchesPlatform = platform === 'all' || (cert.platform || '') === platform;
+            const matchesYear     = year === 'all' || new Date(cert.issueDate).getFullYear().toString() === year;
             const matchesCategory = category === 'all' || cert.category === category;
 
             return matchesSearch && matchesSkill && matchesPlatform && matchesYear && matchesCategory;
@@ -129,8 +132,8 @@ const CertificatesApp = {
         this.filteredCerts.forEach((cert, index) => {
             const delay = (index % 10) * 0.1;
             const isPdf = cert.image && cert.image.toLowerCase().endsWith('.pdf');
-            // Cloudinary auto-generates a thumbnail of the first page of a PDF if you change the extension to .jpg
             const displayImage = isPdf ? cert.image.replace(/\.pdf$/i, '.jpg') : cert.image;
+            const skills = Array.isArray(cert.skills) ? cert.skills : [];
             
             html += `
                 <div class="cert-card glass-card" style="animation-delay: ${delay}s" onclick="CertificatesApp.openModal('${cert.id}')">
@@ -146,8 +149,8 @@ const CertificatesApp = {
                             ${cert.organization}
                         </div>
                         <div class="cert-tags">
-                            ${cert.skills.slice(0, 3).map(skill => `<span class="tag">${skill}</span>`).join('')}
-                            ${cert.skills.length > 3 ? `<span class="tag">+${cert.skills.length - 3}</span>` : ''}
+                            ${skills.slice(0, 3).map(skill => `<span class="tag">${skill}</span>`).join('')}
+                            ${skills.length > 3 ? `<span class="tag">+${skills.length - 3}</span>` : ''}
                         </div>
                         <div class="cert-actions">
                             <span class="view-btn">View Details →</span>
@@ -166,6 +169,9 @@ const CertificatesApp = {
 
         const isPdf = cert.image && cert.image.toLowerCase().endsWith('.pdf');
         const displayImage = isPdf ? 'https://upload.wikimedia.org/wikipedia/commons/8/87/PDF_file_icon.svg' : cert.image;
+        const skills = Array.isArray(cert.skills) ? cert.skills : [];
+        const orgLine = [cert.organization, cert.platform].filter(x => x && x.trim()).join(' | ');
+        const learningHoursText = cert.learningHours ? `${cert.learningHours} Hours` : 'N/A';
 
         this.modalContent.innerHTML = `
             <div class="modal-image-col" style="${isPdf ? 'background: rgba(255,255,255,0.02); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem;' : ''}">
@@ -179,8 +185,8 @@ const CertificatesApp = {
             </div>
             <div class="modal-info-col">
                 <h2 class="modal-title gradient-text">${cert.title}</h2>
-                <div class="modal-org">${cert.organization} | ${cert.platform}</div>
-                <p class="modal-desc">${cert.courseDescription}</p>
+                <div class="modal-org">${orgLine}</div>
+                <p class="modal-desc">${cert.courseDescription || ''}</p>
                 
                 <div class="modal-meta">
                     <div class="meta-item">
@@ -189,11 +195,11 @@ const CertificatesApp = {
                     </div>
                     <div class="meta-item">
                         <span class="meta-label">Learning Time</span>
-                        <span class="meta-value">${cert.learningHours} Hours</span>
+                        <span class="meta-value">${learningHoursText}</span>
                     </div>
                     <div class="meta-item">
                         <span class="meta-label">Category</span>
-                        <span class="meta-value">${cert.category}</span>
+                        <span class="meta-value">${cert.category || 'N/A'}</span>
                     </div>
                     <div class="meta-item">
                         <span class="meta-label">Credential ID</span>
@@ -201,12 +207,13 @@ const CertificatesApp = {
                     </div>
                 </div>
 
+                ${skills.length ? `
                 <div class="modal-skills">
                     <span class="meta-label" style="display:block; margin-bottom: 0.5rem">Skills Mastered</span>
                     <div class="cert-tags">
-                        ${cert.skills.map(skill => `<span class="tag" style="border-color: var(--accent-primary)">${skill}</span>`).join('')}
+                        ${skills.map(skill => `<span class="tag" style="border-color: var(--accent-primary)">${skill}</span>`).join('')}
                     </div>
-                </div>
+                </div>` : ''}
 
                 ${cert.verificationLink ? `
                     <a href="${cert.verificationLink}" target="_blank" class="verify-btn" style="margin-top: 1.5rem;">Verify Platform Credential</a>
