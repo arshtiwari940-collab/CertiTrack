@@ -1,0 +1,58 @@
+[
+    {
+        "id": "cert-001",
+        "title": "Advanced Web Architectures",
+        "organization": "Google",
+        "platform": "Coursera",
+        "issueDate": "2023-05-15",
+        "learningHours": 45,
+        "credentialId": "GCP-102938",
+        "verificationLink": "https://coursera.org",
+        "category": "Cloud",
+        "skills": ["GCP", "Kubernetes", "Microservices", "System Design"],
+        "courseDescription": "Comprehensive course on designing scalable and resilient architectures on Google Cloud Platform.",
+        "image": "https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+        "id": "cert-002",
+        "title": "Modern Frontend Masters",
+        "organization": "Frontend Masters",
+        "platform": "Frontend Masters",
+        "issueDate": "2023-08-22",
+        "learningHours": 60,
+        "credentialId": "FM-React2023",
+        "verificationLink": "https://frontendmasters.com",
+        "category": "Frontend",
+        "skills": ["JavaScript", "HTML5", "CSS3", "React", "Animations"],
+        "courseDescription": "Deep dive into advanced frontend techniques, performance optimization, and modern tooling.",
+        "image": "https://images.unsplash.com/photo-1507721999472-8ed4421c4af2?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+        "id": "cert-003",
+        "title": "Fullstack Deep Learning",
+        "organization": "UC Berkeley",
+        "platform": "FSDL",
+        "issueDate": "2024-01-10",
+        "learningHours": 55,
+        "credentialId": "FSDL-2024",
+        "verificationLink": "https://fullstackdeeplearning.com",
+        "category": "AI",
+        "skills": ["PyTorch", "MLOps", "Transformers", "Neural Networks"],
+        "courseDescription": "Bootcamp on training, deploying, and monitoring deep learning models in production.",
+        "image": "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+        "id": "cert-004",
+        "title": "Advanced Node.js Scaling",
+        "organization": "OpenJS Foundation",
+        "platform": "Linux Foundation",
+        "issueDate": "2024-03-05",
+        "learningHours": 32,
+        "credentialId": "JSND-901",
+        "verificationLink": "https://training.linuxfoundation.org",
+        "category": "Backend",
+        "skills": ["Node.js", "Redis", "Streams", "Performance"],
+        "courseDescription": "Learning how to scale Node.js backends using clustering, caching, and stream processing.",
+        "image": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80"
+    }
+]

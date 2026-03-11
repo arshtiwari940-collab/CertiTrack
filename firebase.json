@@ -1,0 +1,14 @@
+{
+  "hosting": {
+    "public": ".",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**",
+      "**/node_modules/**",
+      "eslint.config.js",
+      "package.json",
+      "package-lock.json"
+    ]
+  }
+}

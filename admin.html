@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Admin panel for managing CertiTrack profile and certificate uploads. Login required.">
+    <meta name="robots" content="noindex, nofollow">
+    <title>CERTITRACK | Admin</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="theme-dark admin-body">
+    <!-- Animated Background -->
+    <div class="background-grid"></div>
+    <div class="gradient-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="glass-nav">
+        <div class="nav-brand">CERTITRACK</div>
+        <div class="nav-links">
+            <a href="index.html">Dashboard</a>
+            <a href="certificates.html">Certificates</a>
+            <a href="admin.html" class="active">Admin</a>
+        </div>
+        <!-- Day / Night Toggle -->
+        <button id="themeToggleBtn" class="theme-toggle-btn" title="Toggle Light/Dark Mode">
+            <span id="themeIcon">☀️</span>
+        </button>
+    </nav>
+
+    <main class="admin-container">
+        <!-- Auth Form -->
+        <section id="authSection" class="admin-panel glass-card">
+            <h2 class="gradient-text">Admin Login</h2>
+            <form id="loginForm" class="upload-form" autocomplete="on">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" autocomplete="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" autocomplete="current-password" required>
+                </div>
+                <button type="submit" class="submit-btn glow-effect">Login</button>
+            </form>
+            <div id="authErrorMsg" class="success-msg hidden" style="border-color: #ff0844; color: #ff0844; background: rgba(255, 8, 68, 0.1);"></div>
+        </section>
+
+        <!-- Upload Form (Hidden initially) -->
+        <section id="uploadSection" class="admin-panel glass-card hidden">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                <h2 class="gradient-text" style="margin-bottom: 0;">Admin Panel</h2>
+                <button id="logoutBtn" class="submit-btn" style="padding: 0.5rem 1rem; margin-top: 0; font-size: 0.9rem;">Logout</button>
+            </div>
+
+            <!-- Tab Navigation -->
+            <div class="admin-tabs">
+                <button class="admin-tab active" data-tab="upload">Upload Certificate</button>
+                <button class="admin-tab" data-tab="profile">Edit Profile</button>
+            </div>
+
+            <!-- Tab: Upload Certificate -->
+            <div id="tab-upload" class="tab-content active">
+                <form id="uploadForm" class="upload-form">
+                    <div class="form-group">
+                        <label for="title">Certificate Title</label>
+                        <input type="text" id="title" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="organization">Issuing Organization</label>
+                            <input type="text" id="organization" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="platform">Platform</label>
+                            <input type="text" id="platform" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="issueDate">Issue Date</label>
+                            <input type="date" id="issueDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="learningHours">Learning Hours</label>
+                            <input type="number" id="learningHours" required min="1">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="credentialId">Credential ID</label>
+                            <input type="text" id="credentialId">
+                        </div>
+                        <div class="form-group">
+                            <label for="verificationLink">Verification Link URL</label>
+                            <input type="url" id="verificationLink">
+                        </div>
+                    </div>
+
+                    <!-- Category with "Other" support -->
+                    <div class="form-group">
+                        <label for="category">Category</label>
+                        <select id="category" required>
+                            <option value="Frontend">Frontend Development</option>
+                            <option value="Backend">Backend Development</option>
+                            <option value="Cloud">Cloud Computing</option>
+                            <option value="AI">Artificial Intelligence</option>
+                            <option value="DevOps">DevOps</option>
+                            <option value="Database">Database Management</option>
+                            <option value="Cybersecurity">Cybersecurity</option>
+                            <option value="Mobile">Mobile Development</option>
+                            <option value="Data Science">Data Science</option>
+                            <option value="Other">Other (specify below)</option>
+                        </select>
+                    </div>
+                    <!-- Hidden – shown only when "Other" is selected -->
+                    <div class="form-group hidden" id="customCategoryGroup">
+                        <label for="customCategory">Enter Custom Category</label>
+                        <input type="text" id="customCategory" placeholder="e.g. Blockchain, Game Dev...">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="skills">Skills Learned (Comma separated)</label>
+                        <input type="text" id="skills" placeholder="e.g. React, Node.js, AWS" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="courseDescription">Course Description</label>
+                        <textarea id="courseDescription" rows="4" required></textarea>
+                    </div>
+
+                    <!-- Certificate Image / PDF File Picker -->
+                    <div class="form-group">
+                        <label for="certFile">Certificate Image or PDF (upload from device)</label>
+                        <input type="file" id="certFile" accept="image/*,application/pdf" class="file-input">
+                        <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem;">
+                            Accepted: JPG, PNG, PDF. Max recommended: 5 MB.
+                        </p>
+                        <!-- Live image preview (hidden for PDFs) -->
+                        <img id="certFilePreview" src="" alt="Certificate preview" style="display:none; max-width:100%; max-height:200px; margin-top:1rem; border-radius: 8px; border: 1px solid var(--glass-border);">
+                        <p id="certPdfLabel" style="display:none; margin-top:0.5rem; color: var(--accent-primary); font-size:0.9rem;">📄 PDF selected – ready to upload.</p>
+                    </div>
+
+                    <button type="submit" class="submit-btn glow-effect" id="uploadBtn">Upload Certificate</button>
+                </form>
+                <div id="uploadSuccessMsg" class="success-msg hidden">Certificate uploaded successfully!</div>
+                <div id="uploadErrorMsg" class="success-msg hidden" style="border-color: #ff0844; color: #ff0844; background: rgba(255, 8, 68, 0.1);"></div>
+            </div>
+
+            <!-- Tab: Edit Profile -->
+            <div id="tab-profile" class="tab-content">
+                <div class="profile-preview-box">
+                    <img id="profilePreviewImg" src="https://ui-avatars.com/api/?name=Admin&background=random&size=200" alt="Profile Preview">
+                </div>
+                <form id="profileForm" class="upload-form">
+                    <div class="form-group">
+                        <label for="profileName">Full Name</label>
+                        <input type="text" id="profileName" placeholder="e.g. Alex Developer" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="profileHeadline">Professional Headline</label>
+                        <input type="text" id="profileHeadline" placeholder="e.g. Senior Frontend Engineer & Cloud Architect" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="profileIntro">Short Introduction</label>
+                        <textarea id="profileIntro" rows="3" placeholder="Tell visitors a little about yourself..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="profileImage">Profile Picture (select from device)</label>
+                        <input type="file" id="profileImage" accept="image/*" class="file-input">
+                    </div>
+                    <button type="submit" class="submit-btn glow-effect" id="profileSaveBtn">Save Profile</button>
+                </form>
+                <div id="profileSuccessMsg" class="success-msg hidden">Profile saved! Dashboard updated.</div>
+                <div id="profileErrorMsg" class="success-msg hidden" style="border-color: #ff0844; color: #ff0844; background: rgba(255, 8, 68, 0.1);"></div>
+            </div>
+
+        </section>
+    </main>
+
+    <script type="module" src="js/firebase-config.js"></script>
+    <script src="js/cloudinary.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/app.js" defer></script>
+    <script type="module" src="js/admin.js"></script>
+</body>
+</html>

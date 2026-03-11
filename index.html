@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CERTITRACK – A personal real-time certification portfolio dashboard showcasing skills and learning progress.">
+    <title>CERTITRACK | Dashboard</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <!-- Modern Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="theme-dark">
+    <!-- Animated Background -->
+    <div class="background-grid"></div>
+    <div class="gradient-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="glass-nav">
+        <div class="nav-brand">CERTITRACK</div>
+        <div class="nav-links">
+            <a href="index.html" class="active">Dashboard</a>
+            <a href="certificates.html">Certificates</a>
+            <a href="admin.html">Admin</a>
+        </div>
+        <button id="themeToggleBtn" class="theme-toggle-btn" title="Toggle Light/Dark Mode">
+            <span id="themeIcon">☀️</span>
+        </button>
+    </nav>
+
+    <main class="dashboard-container">
+        <!-- Hero Section -->
+        <section class="hero glass-card">
+            <div class="hero-content">
+                <div class="avatar-container">
+                    <img id="heroAvatar" src="https://ui-avatars.com/api/?name=Admin&background=0a0a0f&color=00f2fe&size=200" alt="Avatar" class="avatar">
+                    <div class="status-indicator"></div>
+                </div>
+                <div class="user-info">
+                    <h1 id="heroName" class="gradient-text">Your Name</h1>
+                    <h2 id="heroHeadline" class="headline">Add your headline in Admin → Edit Profile</h2>
+                    <p id="heroIntro" class="intro">Welcome to your personal CertiTrack dashboard.</p>
+                </div>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-card glass-panel" data-stat="total-certs">
+                    <h3 class="stat-value counter" data-target="0">0</h3>
+                    <p class="stat-label">Total Certificates</p>
+                </div>
+                <div class="stat-card glass-panel" data-stat="learning-hours">
+                    <h3 class="stat-value counter" data-target="0">0</h3>
+                    <p class="stat-label">Learning Hours</p>
+                </div>
+                <div class="stat-card glass-panel" data-stat="platforms">
+                    <h3 class="stat-value counter" data-target="0">0</h3>
+                    <p class="stat-label">Platforms Used</p>
+                </div>
+                <div class="stat-card glass-panel" data-stat="skills">
+                    <h3 class="stat-value counter" data-target="0">0</h3>
+                    <p class="stat-label">Skills Mastered</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skill Analytics Dashboard -->
+        <section class="analytics-section">
+            <h2 class="section-title">Skill Intelligence</h2>
+            <div class="analytics-grid">
+                <!-- Progress Bars Card -->
+                <div class="analytics-card glass-card">
+                    <h3>Top Technologies</h3>
+                    <div class="skills-bars-container" id="top-skills-container">
+                        <!-- Populated dynamically via JS -->
+                    </div>
+                </div>
+
+                <!-- Circular Charts Card -->
+                <div class="analytics-card glass-card">
+                    <h3>Category Mastery</h3>
+                    <div class="circular-charts-container" id="category-charts-container">
+                        <!-- Populated dynamically via JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Learning Timeline -->
+        <section class="timeline-section">
+            <h2 class="section-title">Learning Journey</h2>
+            <div class="timeline" id="learning-timeline">
+                <!-- Timeline items populated dynamically -->
+            </div>
+        </section>
+    </main>
+
+    <script type="module" src="js/firebase-config.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/app.js" defer></script>
+    <script src="js/dashboard.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Browse and search all certifications earned by this developer across multiple platforms and domains.">
+    <title>CERTITRACK | Certificates</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="theme-dark">
+    <!-- Animated Background -->
+    <div class="background-grid"></div>
+    <div class="gradient-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="glass-nav">
+        <div class="nav-brand">CERTITRACK</div>
+        <div class="nav-links">
+            <a href="index.html">Dashboard</a>
+            <a href="certificates.html" class="active">Certificates</a>
+            <a href="admin.html">Admin</a>
+        </div>
+        <button id="themeToggleBtn" class="theme-toggle-btn" title="Toggle Light/Dark Mode">
+            <span id="themeIcon">☀️</span>
+        </button>
+    </nav>
+
+    <main class="gallery-container">
+        <!-- Smart Search & Filter System -->
+        <section class="filter-section glass-card">
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Search by title, skill, or organization..." autocomplete="off">
+            </div>
+            <div class="filter-options">
+                <div class="custom-select">
+                    <select id="skillFilter">
+                        <option value="all">All Skills</option>
+                    </select>
+                </div>
+                <div class="custom-select">
+                    <select id="platformFilter">
+                        <option value="all">All Platforms</option>
+                    </select>
+                </div>
+                <div class="custom-select">
+                    <select id="yearFilter">
+                        <option value="all">All Years</option>
+                    </select>
+                </div>
+                <div class="custom-select">
+                    <select id="categoryFilter">
+                        <option value="all">All Categories</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+
+        <!-- Certificates Grid -->
+        <section class="certificates-grid" id="certificatesContainer">
+            <!-- Certificate Cards populated conditionally -->
+        </section>
+    </main>
+
+    <!-- Certificate Detail Modal -->
+    <div class="modal-overlay" id="certModal">
+        <div class="glass-modal">
+            <button class="close-btn" id="closeModalBtn">&times;</button>
+            <div class="modal-content" id="modalContent">
+                <!-- Modal content populated dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="js/firebase-config.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/app.js" defer></script>
+    <script src="js/certificates.js" defer></script>
+</body>
+</html>
