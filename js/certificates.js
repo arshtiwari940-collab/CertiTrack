@@ -131,14 +131,25 @@ const CertificatesApp = {
         let html = '';
         this.filteredCerts.forEach((cert, index) => {
             const delay = (index % 10) * 0.1;
+            const fallbackImg = 'https://images.unsplash.com/photo-1599305445671-ac291c95aaa9?w=600&q=80';
             const isPdf = cert.image && cert.image.toLowerCase().endsWith('.pdf');
-            const displayImage = isPdf ? cert.image.replace(/\.pdf$/i, '.jpg') : cert.image;
+            
+            let displayImage = cert.image || fallbackImg;
+            if (isPdf) {
+                displayImage = cert.image.replace(/\.pdf$/i, '.jpg');
+                // Force Cloudinary to render the first page securely
+                if (displayImage.includes('/upload/')) {
+                    displayImage = displayImage.replace('/upload/', '/upload/w_600,f_jpg,pg_1/');
+                }
+            } else if (cert.image && cert.image.includes('/upload/')) {
+                displayImage = cert.image.replace('/upload/', '/upload/w_600,f_auto,q_auto/');
+            }
             const skills = Array.isArray(cert.skills) ? cert.skills : [];
             
             html += `
                 <div class="cert-card glass-card" style="animation-delay: ${delay}s" onclick="CertificatesApp.openModal('${cert.id}')">
                     <div class="cert-image-wrapper">
-                        <img src="${displayImage}" alt="${cert.title}" class="cert-image" loading="lazy">
+                        <img src="${displayImage}" alt="${cert.title}" class="cert-image" loading="lazy" onerror="this.onerror=null; this.src='${fallbackImg}';">
                         <div class="cert-overlay"></div>
                     </div>
                     <div class="cert-content">

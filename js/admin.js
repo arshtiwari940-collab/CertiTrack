@@ -328,7 +328,12 @@ async function loadManageCerts() {
             const id = docSnap.id;
             const issueDate = c.issueDate ? new Date(c.issueDate).toLocaleDateString(undefined, { year:'numeric', month:'short', day:'numeric' }) : '—';
             const isPdf = c.image && c.image.toLowerCase().endsWith('.pdf');
-            const thumb = isPdf ? c.image.replace(/\.pdf$/i, '.jpg') : (c.image || '');
+            let thumb = c.image || '';
+            if (isPdf && thumb.includes('/upload/')) {
+                thumb = thumb.replace(/\.pdf$/i, '.jpg').replace('/upload/', '/upload/w_200,f_jpg,pg_1/');
+            } else if (thumb && thumb.includes('/upload/')) {
+                thumb = thumb.replace('/upload/', '/upload/w_200,f_auto,q_auto/');
+            }
 
             html += `
             <div class="glass-panel" style="display:flex;align-items:center;gap:1.25rem;padding:1rem;border-radius:var(--radius-sm);">
